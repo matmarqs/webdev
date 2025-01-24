@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Links and Images</title>
+</head>
+
+<body>
+    <h1>Homepage</h1>
+    <p>The common way to link a page, which takes the <code>_self</code> value and opens the link in the current tab.</p>
+    <a href="https://www.theodinproject.com/about">About the Odin Project</a>
+    <img src="https://www.theodinproject.com/mstile-310x310.png"
+    alt="The Odin Project Logo" height="310" width="310">
+
+    <p>Opening links in a new tab:</p>
+    <a href="https://www.theodinproject.com/about" target="_blank" rel="noopener noreferrer">About the Odin Project</a>
+
+    <p>The <code>rel="noopener noreferrer"</code> is used for security reasons.
+    <ul>
+        <li>
+            <code>"noopener"</code> means the opened
+            link will not have access to change the page
+            (this is known as tabnabbing, and most recent browsers are secured against
+            this by default, as they always include <code>"noopener"</code> implicitly
+            when <code>target="_blank"</code> is used).
+        </li>
+        <li>
+            <code>"noreferrer"</code> means the opened link will not know which is the Referrer, i.e.,
+            which website was the previous.</p>
+        </li>
+    </ul>
+    <h1>This site's about page</h1>
+    <a href="./pages/about.html">About</a>
+</body>
+</html>

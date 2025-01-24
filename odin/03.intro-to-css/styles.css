@@ -1,0 +1,83 @@
+/* styles.css */
+
+/* Universal selector */
+* {
+  color: purple;
+}
+
+/* Type selector */
+div {
+  color: white;
+  background-color: black;
+}
+
+/* Class selector */
+.alert-text {
+  color: red;
+}
+
+/* ID selector */
+#title {
+  background-color: red;
+}
+
+/* Grouping selector */
+/* What if we have two groups of elements that share some of their style declarations? */
+/* To cut down on the repetition, we can group these two selectors together as a comma-separated list */
+.read,
+.unread {
+  color: white;
+  background-color: black;
+}
+.read {
+  /* several unique declarations */
+}
+.unread {
+  /* several unique declarations */
+}
+
+/* Chaining selector */
+.subsection.header {
+  color: red;
+}
+/* What .subsection.header does is it selects any element that has both the subsection and header classes. */
+/* This can also be used to chain a class and an ID, as shown below: */
+.subsection.header {
+  color: red;
+}
+.subsection#preview {
+  color: blue;
+}
+
+/* Descendant combinator */
+.ancestor .contents {
+  /* some declarations */
+}
+
+/* Color properties */
+h1 {
+  /* hex example: */
+  color: #1100ff;
+}
+h2 {
+  /* rgb example: */
+  color: rgb(100, 0, 127);
+}
+h3 {
+  /* hsl example: */
+  color: hsl(15, 82%, 56%);
+}
+
+/* Typography basics */
+h4 {
+  font-family: "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Image height and width */
+img {
+    height: auto;   /* without losing proportion */
+    width: 500px;
+}

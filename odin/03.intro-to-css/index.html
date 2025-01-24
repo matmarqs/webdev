@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Learning CSS</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Internal CSS -->
+  <style>
+    div {
+      color: blue;
+      background-color: black;
+    }
+
+    p {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- index.html -->
+  <!-- Inline CSS -->
+  <div style="color: yellow; background-color: black;">Inline CSS applied here</div>
+  <div>Hello world!</div>
+  <div>Hello again!</div>
+  <p>Hi...</p>
+  <div>Okay! Bye.</div>
+
+  <h2>Class selector</h2>
+  <div class="alert-text">Please agree to our terms of service.</div>
+
+  <h2>ID selector</h2>
+  <div id="title">My Awesome 90's page</div>
+
+  <h2>Chaining selectors</h2>
+  <div>
+    <div class="subsection header">Latest Posts</div>
+    <p class="subsection preview">This is where a preview for a post might go.</p>
+  </div>
+
+  <div>
+  <div class="subsection header">Latest Posts</div>
+  <p class="subsection" id="preview">
+    This is where a preview for a post might go.
+  </p>
+
+  <h2>Descendant combinator</h2>
+  <div class="ancestor">
+      <!-- A -->
+      <div class="contents">
+        <!-- B -->
+        <div class="contents"><!-- C --></div>
+      </div>
+    </div>
+
+    <div class="contents"><!-- D --></div>
+  </div>
+
+  <h4>Teste on h4</h4>
+</body>
+</html>
