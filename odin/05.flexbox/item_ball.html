@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Flexbox</title>
+    <link rel="stylesheet" href="item_ball.css">
+    <style>
+      /* This is the key property: */
+      .item.ball {
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="item ball"></div>
+      <div class="item stretch"></div>
+      <div class="item ball"></div>
+    </div>
+  </body>
+</html>
