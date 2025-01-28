@@ -127,14 +127,14 @@ One very useful feature of flex is the `gap` property. Setting `gap` on a flex c
 
 3. The <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener noreferrer">CSS Tricks “Guide to Flexbox”</a> is a classic. The images and examples are super helpful. It would be a good idea to review parts 1-3 and part 5 (don’t worry about the media query parts, we will cover them later in the course) and then bookmark it as a great cheat sheet for future reference (keep it handy for the practice exercises). :white_check_mark:
 
-4. Do the exercises in our <a href="https://github.com/TheOdinProject/css-exercises/tree/main/foundations/flex" target="_blank" rel="noopener noreferrer">CSS exercises repository’s `foundations/flex` directory</a> (remember that the instructions are in the README) in the order: :rocket:
+4. Do the exercises in our <a href="https://github.com/TheOdinProject/css-exercises/tree/main/foundations/flex" target="_blank" rel="noopener noreferrer">CSS exercises repository’s `foundations/flex` directory</a> (remember that the instructions are in the README) in the order:  :white_check_mark:
 - `01-flex-center` :white_check_mark:
 - `02-flex-header` :white_check_mark:
-- `03-flex-header-2`
-- `04-flex-information`
-- `05-flex-modal`
-- `06-flex-layout`
-- `07-flex-layout-2`
+- `03-flex-header-2` :white_check_mark:
+- `04-flex-information` :white_check_mark:
+- `05-flex-modal` :white_check_mark:
+- `06-flex-layout` :white_check_mark:
+- `07-flex-layout-2` :white_check_mark:
 
 ## Knowledge check
 
@@ -152,5 +152,5 @@ Add `justify-content: center; align-items: center;` to the flex container.
 
 ## Additional resources
 
-* <a href="https://flexboxfroggy.com/" target="_blank" rel="noopener noreferrer">Flexbox Froggy</a> is a funny little game for practicing moving things around with flexbox.
-* <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container" target="_blank" rel="noopener noreferrer">Aligning Items in a Flex Container</a> goes into more depth on axes and `align-items` vs `justify-content`.
+* <a href="https://flexboxfroggy.com/" target="_blank" rel="noopener noreferrer">Flexbox Froggy</a> is a funny little game for practicing moving things around with flexbox.  :white_check_mark:
+* <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container" target="_blank" rel="noopener noreferrer">Aligning Items in a Flex Container</a> goes into more depth on axes and `align-items` vs `justify-content`. :x:
