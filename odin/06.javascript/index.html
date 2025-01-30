@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    // Your JavaScript goes here!
+    console.log("Hello, World!")
+  </script>
+  <script src="teste.js"></script>
+
+  <script>console.log(23+97)</script>
+  <script>console.log(23+97+32+55+29+01)</script>
+  <script>console.log((4 + 6 + 9) / 77)</script>
+  <script>let a = 10</script>
+  <script>console.log(a)</script>
+  <script>a = 8</script>
+  <script>console.log(a)</script>
+  <script>let b = 7*a</script>
+  <script>console.log(b)</script>
+
+  <script>const max = 57</script>
+  <script>const actual = max - 13</script>
+  <script>const percentage = actual / max</script>
+  <script>console.log(percentage)</script>
+
+  <script>console.log(70 + "7")</script>
+
+  <script>console.log("sin x"/"n")</script>
+
+  <script>console.log(+"1" + +"1")</script>
+  <script>console.log("1" + "1")</script>
+
+  <button>Press me</button>
+  <div id="greeting"></div>
+  <script>
+  const button = document.querySelector("button");
+
+  function greet() {
+    const name = prompt("What is your name?");
+    const greeting = document.querySelector("#greeting");
+    greeting.textContent = `Hello ${name}, nice to see you!`;
+  }
+
+  button.addEventListener("click", greet);
+  </script>
+
+</body>
+</html>
