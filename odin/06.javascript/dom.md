@@ -257,84 +257,96 @@ buttons.forEach((button) => {
 Manipulating web pages is the primary benefit of the JavaScript language! These techniques are things that you are likely to be messing with <em>every day</em> as a front-end developer, so let’s practice!
 
 
-1. Complete <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation" target="_blank" rel="noopener noreferrer">MDN’s Active Learning sections on DOM manipulation</a> to test your skills! :rocket: I am doing this on `~/Workspace/dom_manipulation`. <++>
+1. Complete <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation" target="_blank" rel="noopener noreferrer">MDN’s Active Learning sections on DOM manipulation</a> to test your skills! :white_check_mark:
 
 2. Read the following sections from JavaScript Tutorial’s series on the DOM to get a broader idea of how events can be used in your pages. Note that some of the methods like `getElementById` are older and see less use today.
 
 As you read, remember that the general ideas can be applied to any event, not only the ones used in examples - but information specific to a certain event type can always be found by checking documentation.
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-events/" target="_blank" rel="noopener noreferrer">JavaScript events</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-page-load-events/" target="_blank" rel="noopener noreferrer">Page load events</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-mouse-events/" target="_blank" rel="noopener noreferrer">Mouse events</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-keyboard-events/" target="_blank" rel="noopener noreferrer">Keyboard events</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-event-delegation/" target="_blank" rel="noopener noreferrer">Event delegation</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-dispatchevent/" target="_blank" rel="noopener noreferrer">The dispatchEvent method</a>
-* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-custom-events/" target="_blank" rel="noopener noreferrer">Custom events</a>
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-events/" target="_blank" rel="noopener noreferrer">JavaScript events</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-page-load-events/" target="_blank" rel="noopener noreferrer">Page load events</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-mouse-events/" target="_blank" rel="noopener noreferrer">Mouse events</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-keyboard-events/" target="_blank" rel="noopener noreferrer">Keyboard events</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-event-delegation/" target="_blank" rel="noopener noreferrer">Event delegation</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-dispatchevent/" target="_blank" rel="noopener noreferrer">The dispatchEvent method</a> :white_check_mark:
+* <a href="https://www.javascripttutorial.net/javascript-dom/javascript-custom-events/" target="_blank" rel="noopener noreferrer">Custom events</a> :white_check_mark:
 
 ## Knowledge check
 
 * What is the DOM?
 
-
+Document Object Model. It is how the browser interprets the webpage, with a tree-like structure.
 
 * How do you target the nodes you want to work with?
 
-
+With `let elem = document.querySelector("string")`, where `string` is a CSS like query.
 
 * How do you create an element in the DOM?
 
-
+With `let elem = document.createElement("type.class#id")`
 
 * How do you add an element to the DOM?
 
-
+With `parentNode.appendChild(elem)`.
 
 * How do you remove an element from the DOM?
 
-
+With `parentNode.removeChild(elem)`.
 
 * How can you alter an element in the DOM?
 
-
+With `div.style.backgroundColor = 'yellow'`.
 
 * When adding text to a DOM element, should you use textContent or innerHTML? Why?
 
-
+You should use `textContent`, because `innerHTML` can be vulnerable to XSS attacks.
 
 * Where should you include your JavaScript tag in your HTML file when working with DOM nodes?
 
-
+At the end of the file, or with `defer`, because it has to execute after the DOM is created.
 
 * How do “events” and “listeners” work?
 
-
+Events are actions, such as clicks or presses, occuring on the page. Listeners are added to DOM elements, and they "listen" if an event happens on them.
 
 * What are three ways to use events in your code?
 
+Directly on HTML: `<button onclick="alert('Hello World')">Click Me</button>`.
 
+Setting properties `on<eventType>`, such as `btn.onclick = () => alert("Hello World")`.
+
+Adding event listeners: `btn.addEventListener("click", () => { alert("Hello World"); })`.
 
 * Why are event listeners the preferred way to handle events?
 
-
+We can add multiple event listeners if the need arises. It is much more flexible and powerful.
 
 * What are the benefits of using named functions in your listeners?
 
-
+Having a cleaner code.
 
 * How do you attach listeners to groups of nodes?
 
-
+You query all of them with `querySelectorAll()` and do a for loop like:
+```js
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    alert(button.id);
+  });
+});
+```
 
 * What is the difference between the return values of querySelector and querySelectorAll?
 
-
+The `querySelector` only returns the first match, and `querySelectorAll` returns all matches in a NodeList.
 
 * What does a “NodeList” contain?
 
-
+A list of references to DOM nodes.
 
 * Explain the difference between “capture” and “bubbling”.
 
-
+Capturing an event happens from the outermost element to the innermost element where the event happened in the DOM tree. Bubbling is the other director, the innermost to the outermost.
+<img src="fig/javascript-capturing-bubbling.png" width=500>
 
 ## Additional resources
 
@@ -348,3 +360,502 @@ As you read, remember that the general ideas can be applied to any event, not on
 * <a href="https://www.youtube.com/watch?v=VuN8qwZoego" target="_blank" rel="noopener noreferrer">Wes Bos’s Drumkit</a> JavaScript30 program reinforces the content covered in the assignment. In the video you will notice that a deprecated <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode" target="_blank" rel="noopener noreferrer">keycode</a> keyboard event is used, replace it with the recommended <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code" target="_blank" rel="noopener noreferrer">code</a> keyboard event and replace the `data-key` tags accordingly.
 * <a href="https://www.youtube.com/watch?v=F1anRyL37lE" target="_blank" rel="noopener noreferrer">Event Capture, Propagation and Bubbling video</a> from Wes Bos’s JavaScript30 program.
 * <a href="https://dev.to/i3uckwheat/understanding-callbacks-2o9e" target="_blank" rel="noopener noreferrer">Understanding Callbacks in JavaScript</a> for a more in-depth understanding of callbacks.
+
+## More theory
+
+### Page load events
+
+When you open the page:
+
+* `DOMContentLoaded` – the browser fully loaded HTML and completed building the DOM tree. However, it hasn’t loaded external resources like stylesheets and images. In this event, you can start selecting DOM nodes or initialize the interface.
+* `load` – the browser fully loaded the HTML and external resources like images and stylesheets.</ul>
+
+When you leave the page:
+
+* `beforeunload` – fires before the page and resources are unloaded. You can use this event to show a confirmation dialog to confirm if you want to leave the page. By doing this, you can prevent data loss in case the user is filling out a form and accidentally clicks a link that navigates to another page.
+* `unload` – fires when the page has completely unloaded. You can use this event to send the analytic data or to clean up resources.</ul>
+
+```js
+document.addEventListener('DOMContentLoaded',() => {
+    // handle DOMContentLoaded event
+});
+
+document.addEventListener('load',() => {
+    // handle load event
+});
+
+document.addEventListener('beforeunload',() => {
+    // handle beforeunload event
+});
+
+document.addEventListener('unload',() => {
+    // handle unload event
+});
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Page Load Events</title>
+</head>
+
+<body>
+    <script>
+        addEventListener('DOMContentLoaded', (event) => {
+            console.log('The DOM is fully loaded.');
+        });
+
+        addEventListener('load', (event) => {
+            console.log('The page is fully loaded.');
+        });
+
+        addEventListener('beforeunload', (event) => {
+            // show the confirmation dialog
+            event.preventDefault();
+            // Google Chrome requires returnValue to be set.
+            event.returnValue = '';
+        });
+
+        addEventListener('unload', (event) => {
+            // send analytic data
+        });
+    </script>
+</body>
+</html>
+```
+
+### Mouse events
+
+#### `click`
+
+When you `click` an element, there are no less than three mouse events fire in the following sequence:
+
+1. The `mousedown` fires when you press the mouse button on the element.
+2. The `mouseup` fires when you release the mouse button on the element.
+3. The `click` fires when one `mousedown` and one `mouseup` detected on the element.
+
+If you press the mouse button on an element, move your mouse cursor off the element, and then release the mouse button. The only `mousedown` event fires on the element.
+
+Likewise, if you press the mouse button, move the mouse over the element, and release the mouse button, the only `mouseup` event fires on the element.
+
+In both cases, the `click` event never fires.
+
+It takes two click events to cause a `dblclick` event to fire.
+
+#### `mousemove`
+
+The `mousemove` event fires repeatedly whenever you move the mouse cursor around an element. This `mousemove` event fires many times per second as the mouse is moved around, even if it is just by one pixel. This may lead to a performance issue if the event handler function is complex.
+
+To avoid the performance issue, it is a good practice to add `mousemove` event handler only when you need it and remove it as soon as it is no longer needed, like this:
+```js
+element.onmousemove = mouseMoveEventHandler;
+// ...
+//  later, no longer use
+element.onmousemove = null;
+```
+
+#### `mouseover/mouseout`
+
+The `mouseover` fires when the mouse cursor is outside of the element and then moves inside the boundaries of the element.
+
+The `mouseout` fires when the mouse cursor is over an element and then moves another element.
+
+#### `mouseenter / mouseleave`
+
+The `mouseenter` fires when the mouse cursor is outside of an element and then moves inside the boundaries of the element.
+
+The `mouseleave` fires when the mouse cursor is over an element and then moves to the outside of the element’s boundaries.
+
+Both `mouseenter` and `mouseleave` does not bubble and does not fire when the mouse cursor moves over descendant elements.
+
+#### Detecting mouse buttons
+
+The `event` object passed to the mouse event handler has a property called `button` that indicates which mouse button was pressed on the mouse to trigger the event.
+
+The mouse button is represented by a number:
+
+0. Main mouse button => Left.
+1. Auxiliary button is pressed => Middle or Wheel.
+2. Secondary button is pressed => Right.
+3. Fourth button => Browser Back button.
+4. Fifth button => Browser Forward button.
+
+<img src="fig/javascript-mouse-event-mouse-buttons.png" width=300>
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Mouse Events - Button Demo</title>
+</head>
+<body>
+    <button id="btn">Click me with any mouse button: left, right, middle, ...</button>
+    <p id="message"></p>
+    <script>
+        let btn = document.querySelector('#btn');
+
+        // disable context menu when right-mouse clicked
+        btn.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // show the mouse event message
+        btn.addEventListener('mouseup', (e) => {
+            let msg = document.querySelector('#message');
+            switch (e.button) {
+                case 0:
+                    msg.textContent = 'Left mouse button clicked.';
+                    break;
+                case 1:
+                    msg.textContent = 'Middle mouse button clicked.';
+                    break;
+                case 2:
+                    msg.textContent = 'Right mouse button clicked.';
+                    break;
+                default:
+                    msg.textContent = `Unknown mouse button code: ${event.button}`;
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+#### Modifier keys
+
+When you click an element, you may press one or more modifier keys: `Shift`, `Ctrl`, `Alt`, and `Meta`.
+
+The `Meta` key is the Windows key on Windows keyboards and the `Command` key on the Apple keyboard.
+
+The `event` object has four Boolean properties, where each is set to `true` if the key is being held down or `false` if the key is not pressed.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Modifier Keys Demo</title>
+</head>
+<body>
+    <button id="btnKeys">Click me with Alt, Shift, Ctrl pressed</button>
+    <p id="messageKeys"></p>
+
+    <script>
+        let btnKeys = document.querySelector('#btnKeys');
+
+        btnKeys.addEventListener('click', (e) => {
+            let keys = [];
+
+            if (e.shiftKey) keys.push('shift');
+            if (e.ctrlKey) keys.push('ctrl');
+            if (e.altKey) keys.push('alt');
+            if (e.metaKey) keys.push('meta');
+
+            let msg = document.querySelector('#messageKeys');
+            msg.textContent = `Keys: ${keys.join('+')}`;
+        });
+    </script>
+</body>
+</html>
+```
+
+#### Getting Screen Coordinates
+
+The `screenX` and `screenY` properties of the event passed to the mouse event handler return the screen coordinates of the location of the mouse in relation to the entire screen.
+
+On the other hand, the `clientX` and `clientY` properties provide the horizontal and vertical coordinates within the application’s client area at which the mouse event occurred:
+
+<img src="fig/javascript-screenXY_clientXY.png" width=900>
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Mouse Location Demo</title>
+    <style>
+        #track {
+            background-color: goldenrod;
+            height: 200px;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <p>Move your mouse to see its location.</p>
+    <div id="track"></div>
+    <p id="log"></p>
+
+    <script>
+        let track = document.querySelector('#track');
+        track.addEventListener('mousemove', (e) => {
+            let log = document.querySelector('#log');
+            log.innerText = `
+            Screen X/Y: (${e.screenX}, ${e.screenY})
+            Client X/Y: (${e.clientX}, ${e.clientY})`
+        });
+    </script>
+</body>
+</html>
+```
+
+### Keyboard events
+
+When you interact with the keyboard, the keyboard events are fired. There are three main keyboard events:
+
+* `keydown` – fires when you press a key on the keyboard and fires repeatedly while you’re holding down the key.
+* `keyup` – fires when you release a key on the keyboard.
+* `keypress` – fires when you press a character keyboard like `a`,`b`, or `c`, not the left arrow key, home, or end keyboard, ... The `keypress` also fires repeatedly while you hold down the key on the keyboard.
+
+When you press a character key once on the keyboard, three keyboard events are fired in the following order:
+1. `keydown`
+2. `keypress`
+3. `keyup`
+
+Both `keydown` and `keypress` events are fired before any change is made to the text box, whereas the `keyup` event fires after the changes have been made to the text box. If you hold down a character key, the `keydown` and `keypress` are fired repeatedly until you release the key.
+
+When you press a non-character key, the `keydown` event is fired first followed by the `keyup` event. If you hold down the non-character key, the `keydown` is fired repeatedly until you release the key.
+
+#### The keyboard event properties
+
+The keyboard event has two important properties: `key` and `code`. The key property returns the character that has been pressed whereas the `code` property returns the physical key code.
+
+For example, if you press the `z` character key, the `event.key` returns `"z"` and `event.code` returns `"KeyZ"`.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Keyboard Events: Key/Code</title>
+</head>
+<body>
+    <input type="text" id="message">
+
+    <script>
+        let textBox = document.querySelector('#message');
+        textBox.addEventListener('keydown', (event) => {
+            console.log(`key=${event.key},code=${event.code}`);
+
+        });
+    </script>
+</body>
+</html>
+```
+
+#### Event delegation
+
+JavaScript event delegation adds a single event handler to the parent element instead of having to register multiple event handlers to the child elements.
+
+Suppose that you have the following menu:
+```html
+<ul id="menu">
+    <li><a id="home">home</a></li>
+    <li><a id="dashboard">Dashboard</a></li>
+    <li><a id="report">report</a></li>
+</ul>
+```
+
+```js
+let home = document.querySelector('#home');
+home.addEventListener('click',(event) => {
+    console.log('Home menu item was clicked');
+});
+
+let dashboard = document.querySelector('#dashboard');
+dashboard.addEventListener('click',(event) => {
+    console.log('Dashboard menu item was clicked');
+});
+
+let report = document.querySelector('#report');
+report.addEventListener('click',(event) => {
+    console.log('Report menu item was clicked');
+});
+```
+
+In JavaScript, if you have a large number of event handlers on a page, these event handlers will directly impact the performance because of the following reasons:
+
+* First, each event handler is a function which is also an object that takes up memory.
+* Second, it takes time to assign all the event handlers.
+
+To solve this issue, you can leverage the event bubbling. Instead of having multiple event handlers, you can assign a single event handler to handle all the click events:
+```js
+let menu = document.querySelector('#menu');
+
+menu.addEventListener('click', (event) => {
+    let target = event.target;
+
+    switch(target.id) {
+        case 'home':
+            console.log('Home menu item was clicked');
+            break;
+        case 'dashboard':
+            console.log('Dashboard menu item was clicked');
+            break;
+        case 'report':
+            console.log('Report menu item was clicked');
+            break;
+    }
+});
+```
+
+How it works.
+
+* When you click any `<a>` element inside the `<ul>` element with the id `menu`, the click event bubbles to the parent element which is the `<ul>` element. So instead of handling the `click` event of the individual `<a>` element, you can capture the `click` event at the parent element.
+* In the `click` event listener, you can access the `target` property which references the element that dispatches the event. To get the `id` of the element that the event fires, you use the `target.id` property.
+* Once having the `id` of the element that fires the `click` event, you can have the code that handles the event correspondingly.
+
+The event delegation refers to the technique of using event bubbling to handle events at a higher level in the DOM than the element on which the event originated
+
+### Dispatching events
+
+To generate an event programmatically, you follow these steps:
+
+* First, create a `new Event` object using `Event` constructor.
+* Then, trigger the event using `element.dispatchEvent()` method.
+
+```js
+let event = new Event(type, options={bubbles: false, cancelable: false});
+```
+
+For example, the following code shows how to create the click event and fire it on a button:
+```html
+<button class="btn">Test</button>
+```
+
+```js
+let btn = document.querySelector('.btn');
+
+ btn.addEventListener('click', function () {
+        alert('Mouse Clicked');
+ });
+
+let clickEvent = new Event('click');
+btn.dispatchEvent(clickEvent);
+```
+
+If the event comes from the user actions, the `event.isTrusted` property is set to `true`. In case the event is generated by code, the `event.isTrusted` is `false`. Therefore, you can examine the value of `event.isTrusted` property to check the “authenticity” of the event.
+
+The `Event` is the base type of `UIEvent` which is the base type of other specific event types such as `MouseEvent`, `TouchEvent`, `FocusEvent`, and `KeyboardEvent`.
+
+It’s a good practice to use the specialized event constructor like `MouseEvent` instead of using the generic `Event` type because these constructors provide more information specific to the events.
+
+For example, the `MouseEvent` event has many other properties such as `clientX` and `clientY` that specify the horizontal and vertical coordinates at which the event occurred relative to the viewport:
+```js
+let clickEvent = new MouseEvent("click", {
+    bubbles: true,
+    cancelable: true,
+    clientX: 150,
+    clientY: 150
+});
+```
+
+#### Custom events
+
+The following function highlights an element by changing its background color to `yellow`:
+```js
+function highlight(elem) {
+    const bgColor = 'yellow';
+    elem.style.backgroundColor = bgColor;
+}
+```
+
+To execute a piece of code after highlighting the element, you may come up with a callback:
+```html
+<div class="note">JS Custom Event Demo</div>
+```
+
+```js
+function highlight(elem, callback) {
+    const bgColor = 'yellow';
+    elem.style.backgroundColor = bgColor;
+
+    if (callback && typeof callback === 'function') {
+        callback(elem);
+    }
+}
+
+function addBorder(elem) {
+    elem.style.border = "solid 1px red";
+}
+
+let note = document.querySelector('.note');
+highlight(note, addBorder);
+```
+
+To make the code more flexible, you can use the custom event. To create a custom event, you use the `CustomEvent()` constructor:
+```js
+let event = new CustomEvent(eventType, options);
+```
+* The `eventType` is a string that represents the name of the event.
+* The `options` is an object has the detail property that contains any custom information about the event.
+
+The following example shows how to create a new custom event called `highlight`:
+```js
+let event = new CustomEvent('highlight', {
+    detail: {backgroundColor: 'yellow'}
+});
+```
+
+After creating a custom event, you need to attach the event to a DOM element and trigger it by using the `dispatchEvent()` method:
+```js
+domElement.dispatchEvent(event);
+```
+
+##### Custom event example:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Custom Event</title>
+</head>
+<body>
+    <div class="note">JS Custom Event</div>
+    <script>
+        function highlight(elem) {
+            const bgColor = 'yellow';
+            elem.style.backgroundColor = bgColor;
+
+            // create the event
+            let event = new CustomEvent('highlight', {
+                detail: {
+                    backgroundColor: bgColor
+                }
+            });
+            // dispatch the event
+            elem.dispatchEvent(event);  // almost as a notification
+        }
+
+        // Select the div element
+        let div = document.querySelector('.note');
+
+        // Add border style
+        function addBorder(elem) {
+            elem.style.border = "solid 1px red";
+        }
+
+        // Listen to the highlight event
+        div.addEventListener('highlight', function (e) {
+            addBorder(this);
+
+            // examine the background
+            console.log(e.detail);
+        });
+
+        // highlight div element
+        highlight(div);
+    </script>
+</body>
+</html>
+```
+
+* First, declare the `highlight()` function that highlights an element and triggers the `highlight` event.
+* Second, select the `<div>` element by using the `querySelector()` method.
+* Third, listen to the `highlight` event. Inside the event listener, call the `addBorder()` function and show the `detail` property in the Console.
+* Finally, call the `highlight()` function that will trigger the `highlight` event.
+
+##### Why use custom events
+
+Custom events allow you to decouple code execution, allowing one piece of code to run after another completes.
+
+For example, you can place event listeners in a separate script file and have multiple listeners for the same custom event.
