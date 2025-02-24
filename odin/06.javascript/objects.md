@@ -304,3 +304,149 @@ for (let code in codes) {
   alert( +code ); // 49, 41, 44, 1
 }
 ```
+
+## MDN Object Basics
+
+
+```js
+const person = {
+  name: ["Bob", "Smith"],
+  age: 32,
+  bio: function () {
+    console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+  },
+  introduceSelf: function () {
+    console.log(`Hi! I'm ${this.name[0]}.`);
+  },
+};
+```
+
+When the object's members are functions there's a simpler syntax. Instead of `bio: function ()` we can write `bio()`. Like this:
+```js
+const person = {
+  name: ["Bob", "Smith"],
+  age: 32,
+  bio() {
+    console.log(`${this.name[0]} ${this.name[1]} is ${this.age} years old.`);
+  },
+  introduceSelf() {
+    console.log(`Hi! I'm ${this.name[0]}.`);
+  },
+};
+```
+
+### What is "this"?
+
+You are probably wondering what "this" is. The `this` keyword typically refers to the current object the code is being executed in. In the context of an object method, `this` refers to the object that the method was called on.
+
+This isn't hugely useful when you are writing out object literals by hand, as using the object's name leads to the exact same result, but it will be essential when we start using constructors to create more than one object from a single object definition.
+
+### Introducing constructors
+
+Using object literals is fine when you only need to create one object, but if you have to create more than one, as in the previous section, they're seriously inadequate. We have to write out the same code for every object we create, and if we want to change some properties of the object -- like adding a `height` property -- then we have to remember to update every object.
+
+We would like a way to define the "shape" of an object — the set of methods and the properties it can have — and then create as many objects as we like, just updating the values for the properties that are different.
+
+The first version of this is just a function:
+```js
+function createPerson(name) {
+  const obj = {};
+  obj.name = name;
+  obj.introduceSelf = function () {
+    console.log(`Hi! I'm ${this.name}.`);
+  };
+  return obj;
+}
+```
+This function creates and returns a new object each time we call it.
+
+This works fine but is a bit long-winded: we have to create an empty object, initialize it, and return it. A better way is to use a constructor. A constructor is just a function called using the `new` keyword. When you call a constructor, it will:
+* create a new object
+* bind `this` to the new object, so you can refer to `this` in your constructor code
+* run the code in the constructor
+* return the new object.
+
+Constructors, by convention, start with a capital letter and are named for the type of object they create. So we could rewrite our example like this:
+```js
+function Person(name) {
+  this.name = name;
+  this.introduceSelf = function () {
+    console.log(`Hi! I'm ${this.name}.`);
+  };
+}
+```
+
+To call `Person()` as a constructor, we use `new`:
+```js
+const salva = new Person("Salva");
+salva.introduceSelf();
+// "Hi! I'm Salva."
+
+const frankie = new Person("Frankie");
+frankie.introduceSelf();
+// "Hi! I'm Frankie."
+```
+
+## `map`, `filter` and `reduce`
+
+`map`:
+```js
+let numbers = [1,2,3,4,5]
+let squaredNumbers = numbers.map((x) => x*x) // [1,4,9,16,25]
+```
+
+`filter`:
+```js
+let numbers = [1,2,3,4,5]
+let oddNumbers = numbers.filter((x) => x % 2 == 1) // [1,3,5]
+```
+
+`reduce`:
+```js
+let numbers = [1,2,3,4,5]
+// arr.reduce(callback(accumulator, currentValue), initialValueOfAccumulator)
+// initialValueOfAccumulator is optional
+// when not set it will be accumulator starts as arr[0]
+let sumOfNumbers = numbers.reduce((t,x) => t+x) // 10
+let a = numbers.reduce((t,x) => t+x, 10) // sumOfNumbers + 10 = 20
+let multipliedNumber = numbers.reduce((t,x) => t*x) // 120
+```
+
+## Assignment
+
+1. Read through the <a href="https://javascript.info/array-methods" target="_blank" rel="noopener noreferrer">array method guide</a> for a comprehensive overview of array methods in JavaScript. Complete the exercises at the end, except for “Create an extendable calculator,” as it involves more advanced concepts that we have not yet covered. :white_check_mark:
+2. Follow up by watching <a href="https://www.youtube.com/watch?v=HB1ZC7czKRs" target="_blank" rel="noopener noreferrer">JavaScript Array Cardio Practice - Day 1</a> by Wes Bos. To follow along, fork and clone the <a href="https://github.com/wesbos/JavaScript30" target="_blank" rel="noopener noreferrer">JavaScript30 repository</a>. :white_check_mark:
+3. Watch and code along with <a href="https://www.youtube.com/watch?v=QNmRfyNg1lw" target="_blank" rel="noopener noreferrer">Array Cardio Day 2</a>. :white_check_mark:
+4. At this point you just need a little more practice! Go back to the <a href="https://github.com/TheOdinProject/javascript-exercises" target="_blank" rel="noopener noreferrer">JavaScript exercises repository</a> that we introduced in the <a href="https://www.theodinproject.com/lessons/foundations-arrays-and-loops" target="_blank" rel="noopener noreferrer">Arrays and Loops</a> assignment. Review each README file prior to completing the following exercises in order: :white_check_mark:
+    - `08_calculator`
+    - `09_palindromes`
+    - `10_fibonacci`
+    - `11_getTheTitles`
+    - `12_findTheOldest`
+
+## Knowledge check
+
+* What is the difference between objects and arrays
+
+Arrays are objects, but have a specific constructor `Array()` and have their methods.
+
+* How do you access object properties
+
+`obj.property` or `obj["property"]`.
+
+* How do primitives and object types differ when you assign them to other variables, or pass them into functions
+
+Primitive values are copied, and objects are just passed by reference.
+
+* What is `Array.prototype.map()` useful for
+
+To transform each element of the array.
+
+* What is `Array.prototype.filter()` useful for
+
+To filter elements of the array.
+
+* What is `Array.prototype.reduce()` useful for
+
+To perform a cumulative calculation on the array.
+
