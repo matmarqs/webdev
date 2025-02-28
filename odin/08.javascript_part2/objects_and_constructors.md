@@ -258,33 +258,434 @@ carl.sayName(); // Uh oh! this logs "HAHAHAHAHAHA" because we edited the sayName
 
 If we had used `Object.setPrototypeOf()` in this example, then we could safely edit the `Enemy.prototype.sayName` function without changing the function for `Player` as well.
 
+### Constructors
+
+```js
+// Initialize a constructor function for a new Hero
+function Hero(name, level) {
+  this.name = name;
+  this.level = level;
+}
+
+// Add greet method to the Hero prototype
+Hero.prototype.greet = function () {
+  return `${this.name} says hello.`;
+}
+```
+
+This is good, but now we want to create character classes for the heroes to use. It wouldn’t make sense to put all the abilities for every class into the `Hero` constructor, because different classes will have different abilities. We want to create new constructor functions, but we also want them to be connected to the original `Hero`.
+
+We can use the `call()` method to copy over properties from one constructor into another constructor. Let’s create a Warrior and a Healer constructor.
+```js
+...
+// Initialize Warrior constructor
+function Warrior(name, level, weapon) {
+  // Chain constructor with call
+  Hero.call(this, name, level);
+
+  // Add a new property
+  this.weapon = weapon;
+}
+
+// Initialize Healer constructor
+function Healer(name, level, spell) {
+  Hero.call(this, name, level);
+
+  this.spell = spell;
+}
+
+Warrior.prototype.attack = function () {
+  return `${this.name} attacks with the ${this.weapon}.`;
+}
+
+Healer.prototype.heal = function () {
+  return `${this.name} casts ${this.spell}.`;
+}
+```
+
+But what happens if we try to use methods further down the prototype chain?
+```js
+hero1.greet();
+```
+```txt
+Uncaught TypeError: hero1.greet is not a function
+```
+
+Prototype properties and methods are not automatically linked when you use `call()` to chain constructors. We will use `Object.setPropertyOf()` to link the properties in the `Hero` constructor to the `Warrior` and `Healer` constructors, making sure to put it before any additional methods.
+```js
+...
+Object.setPrototypeOf(Warrior.prototype, Hero.prototype);
+Object.setPrototypeOf(Healer.prototype, Hero.prototype);
+
+// All other prototype methods added below
+...
+```
+
+Now we can successfully use prototype methods from `Hero` on an instance of a `Warrior` or `Healer`.
+```js
+hero1.greet();
+```
+```txt
+"Bjorn says hello."
+```
+
+Here is the full code for our character creation page.
+```js
+// Initialize constructor functions
+function Hero(name, level) {
+  this.name = name;
+  this.level = level;
+}
+
+function Warrior(name, level, weapon) {
+  Hero.call(this, name, level);
+
+  this.weapon = weapon;
+}
+
+function Healer(name, level, spell) {
+  Hero.call(this, name, level);
+
+  this.spell = spell;
+}
+
+// Link prototypes and add prototype methods
+Object.setPrototypeOf(Warrior.prototype, Hero.prototype);
+Object.setPrototypeOf(Healer.prototype, Hero.prototype);
+
+Hero.prototype.greet = function () {
+  return `${this.name} says hello.`;
+}
+
+Warrior.prototype.attack = function () {
+  return `${this.name} attacks with the ${this.weapon}.`;
+}
+
+Healer.prototype.heal = function () {
+  return `${this.name} casts ${this.spell}.`;
+}
+
+// Initialize individual character instances
+const hero1 = new Warrior('Bjorn', 1, 'axe');
+const hero2 = new Healer('Kanin', 1, 'cure');
+```
+
+### `this` keyword
+
+#### Global context
+
+In the global context, the `this` references the [global object](https://www.javascripttutorial.net/es-next/javascript-globalthis/), which is the `window` object on the web browser or `global` object on Node.js.
+
+This behavior is consistent in both strict and non-strict modes. Here’s the output on the web browser:
+
+```js
+console.log(this === window); // true
+```
+
+If you assign a property to `this` object in the global context, JavaScript will add the property to the global object as shown in the following example:
+
+```js
+this.color= 'Red';
+console.log(window.color); // 'Red'
+```
+
+#### Function context
+
+In JavaScript, you can call a [function](https://www.javascripttutorial.net/javascript-function/) in the following ways:
+
+*   Function invocation
+*   Method invocation
+*   Constructor invocation
+*   Indirect invocation
+
+Each function invocation defines its own context. Therefore, the `this` behaves differently.
+
+#### 1) Simple function invocation
+
+In the non-strict mode, the `this` references the global object when the function is called as follows:
+
+```js
+function show() {
+  console.log(this === window); // true
+}
+show();
+```
+
+When you call the `show()` function, the `this` references the [global object](https://www.javascripttutorial.net/es-next/javascript-globalthis/), which is the `window` on the web browser and `global` on Node.js.
+
+Calling the `show()` function is the same as:
+
+```js
+window.show();
+```
+
+In the strict mode, JavaScript sets the `this` inside a function to `undefined`. For example:
+
+```js
+"use strict";
+function show() {
+  console.log(this === undefined);
+}
+show();`
+```
+
+To enable the strict mode, you use the directive `"use strict"` at the beginning of the JavaScript file. If you want to apply the strict mode to a specific function only, you place it at the top of the function body.
+
+Note that the strict mode has been available since ECMAScript 5.1. The `strict` mode applies to both function and nested functions. For example:
+
+```js
+"use strict";
+
+function show() {
+    console.log(this === undefined);
+}
+
+show();
+```
+
+Output:
+
+```js
+true
+true
+```
+
+In the `display()` inner function, the `this` also set to `undefined` as shown in the console.
+
+### 2) Method invocation
+
+When you call a method of an object, JavaScript sets `this` to the object that owns the method. See the following `car` object:
+```js
+let car = {
+    brand: 'Honda',
+    getBrand: function () {
+        return this.brand;
+    }
+}
+
+console.log(car.getBrand()); // Honda
+```
+
+In this example, the `this` object in the `getBrand()` method references the `car` object.
+
+Since a method is a property of an object which is a value, you can store it in a variable.
+
+```js
+let brand = car.getBrand;
+```
+
+And then call the method via the variable
+
+```js
+console.log(brand()); // undefined
+```
+
+You get `undefined` instead of `"Honda"` because when you call a method without specifying its object, JavaScript sets `this` to the global object in non-strict mode and `undefined` in the strict mode.
+
+To fix this issue, you use the `[bind()](https://www.javascripttutorial.net/javascript-bind/)` method of the `Function.prototype` object. The `bind()` method creates a new function whose the `this` keyword is set to a specified value.
+
+```js
+let brand = car.getBrand.bind(car);
+console.log(brand()); // Honda
+```
+
+
+In this example, when you call the `brand()` method, the `this` keyword is bound to the `car` object. For example:
+
+```js
+let car = {
+    brand: 'Honda',
+    getBrand: function () {
+        return this.brand;
+    }
+}
+
+let bike = {
+    brand: 'Harley Davidson'
+}
+
+let brand = car.getBrand.bind(bike);
+console.log(brand());
+```
+
+Output:
+
+`Harley Davidson`
+
+In this example, the `bind()` method sets the `this` to the `bike` object, therefore, you see the value of the `brand` property of the `bike` object on the console.
+
+### 3) Constructor invocation
+
+When you use the `new` keyword to create an instance of a function object, you use the function as a constructor.
+
+The following example declares a `Car` function, and then invokes it as a constructor:
+
+```js
+function Car(brand) {
+    this.brand = brand;
+}
+
+Car.prototype.getBrand = function () {
+    return this.brand;
+}
+
+let car = new Car('Honda');
+console.log(car.getBrand());
+```
+
+The expression `new Car('Honda')` is a constructor invocation of the `Car` function.
+
+JavaScript creates a new object and sets `this` to the newly created object. This pattern works great with only one potential problem.
+
+Now, you can invoke the `Car()` as a function or as a constructor. If you omit the `new` keyword as follows:
+
+```js
+var bmw = Car('BMW');
+console.log(bmw.brand);
+// => TypeError: Cannot read property 'brand' of undefined
+```
+
+Since the `this` value in the `Car()` sets to the global object, the `bmw.brand` returns `undefined`.
+
+To make sure that the `Car()` function is always invoked using constructor invocation, you add a check at the beginning of the `Car()` function as follows:
+
+```js
+function Car(brand) {
+    if (!(this instanceof Car)) {
+        throw Error('Must use the new operator to call the function');
+    }
+    this.brand = brand;
+}
+```
+
+ES6 introduced a meta-property named [`new.target`](https://www.javascripttutorial.net/es6/javascript-new-target/) that allows you to detect whether a function is invoked as a simple invocation or as a constructor.
+
+You can modify the `Car()` function that uses the `new.target` metaproperty as follows:
+
+```js
+function Car(brand) {
+    if (!new.target) {
+        throw Error('Must use the new operator to call the function');
+    }
+    this.brand = brand;
+}
+```
+
+### 4) Indirect Invocation
+
+In JavaScript, [functions are first-class citizens](https://www.javascripttutorial.net/javascript-functions-are-first-class-citizens/). In other words, functions are objects, which are instances of the [Function type](https://www.javascripttutorial.net/javascript-function-type/).
+
+The `Function` type has two methods: `[call()](https://www.javascripttutorial.net/javascript-call-function/)` and `[apply()](https://www.javascripttutorial.net/javascript-apply-method/)` . These methods allow you to set the `this` value when calling a function. For example:
+
+```js
+function getBrand(prefix) {
+    console.log(prefix + this.brand);
+}
+
+let honda = {
+    brand: 'Honda'
+};
+let audi = {
+    brand: 'Audi'
+};
+
+getBrand.call(honda, "It's a ");
+getBrand.call(audi, "It's an ");
+```
+
+Output:
+
+```txt
+It's a Honda
+It's an Audi
+```
+
+In this example, we called the `getBrand()` function indirectly using the `call()` method of the `getBrand` function. We passed `honda` and  `audi` object as the first argument of the `call()` method, therefore, we got the corresponding brand in each call.
+
+The `apply()` method is similar to the `call()` method except that its second argument is an array of arguments.
+
+```js
+getBrand.apply(honda, ["It's a "]); // "It's a Honda"
+getBrand.apply(audi, ["It's an "]); // "It's a Audi"
+```
+
+#### Arrow functions
+
+[ES6](https://www.javascripttutorial.net/es6/) introduced a new concept called the [arrow function](https://www.javascripttutorial.net/es6/javascript-arrow-function/). In arrow functions, JavaScript sets the `this` lexically.
+
+It means the arrow function does not create its own [execution context](https://www.javascripttutorial.net/javascript-execution-context/) but inherits the `this` from the outer function where the arrow function is defined. See the following example:
+
+```js
+let getThis = () => this;
+console.log(getThis() === window); // true
+```
+
+In this example, the `this` value is set to the global object i.e., `window` in the web browser.
+
+Since an arrow function does not create its own execution context, defining a method using an arrow function will cause an issue. For example:
+
+```js
+function Car() {
+  this.speed = 120;
+}
+
+Car.prototype.getSpeed = () => {
+  return this.speed;
+};
+
+var car = new Car();
+console.log(car.getSpeed()); // 👉 undefined
+```
+`function Car() {   this.speed = 120; }  Car.prototype.getSpeed = () => {   return this.speed; };  var car = new Car(); console.log(car.getSpeed()); // 👉 undefined`
+
+Inside the `getSpeed()` method, the `this` value reference the global object, not the `Car` object but the global object doesn’t have a property called speed. Therefore, the `this.speed` in the `getSpeed()` method returns `undefined`.
+
 ## Assignment
 
-1. Read up on the concept of the prototype from the articles below. <++> :rocket:
-    - Read the article <a href="https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript" target="_blank" rel="noopener noreferrer">Understanding Prototypes and Inheritance in JavaScript</a> from Digital Ocean. This is a good review of prototype inheritance and constructor functions, featuring some examples.
-    - To go a bit deeper into both the chain and inheritance, spend some time with <a href="http://javascript.info/prototype-inheritance" target="_blank" rel="noopener noreferrer">JavaScript.Info’s article on Prototypal Inheritance</a>. As usual, doing the exercises at the end will help cement this knowledge in your mind. Don’t skip them! Important note: This article makes heavy use of `__proto__` which is not generally recommended. The concepts here are what we’re looking for at the moment. We will soon learn another method or two for setting the prototype.
+1. Read up on the concept of the prototype from the articles below. :white_check_mark:
+    - Read the article <a href="https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript" target="_blank" rel="noopener noreferrer">Understanding Prototypes and Inheritance in JavaScript</a> from Digital Ocean. This is a good review of prototype inheritance and constructor functions, featuring some examples. :white_check_mark:
+    - To go a bit deeper into both the chain and inheritance, spend some time with <a href="http://javascript.info/prototype-inheritance" target="_blank" rel="noopener noreferrer">JavaScript.Info’s article on Prototypal Inheritance</a>. As usual, doing the exercises at the end will help cement this knowledge in your mind. Don’t skip them! Important note: This article makes heavy use of `__proto__` which is not generally recommended. The concepts here are what we’re looking for at the moment. We will soon learn another method or two for setting the prototype. :white_check_mark:
 
-2. You might have noticed us using the `this` keyword in object constructors and prototype methods in the examples above.
-    - <a href="https://www.javascripttutorial.net/javascript-this/" target="_blank" rel="noopener noreferrer">JavaScript Tutorial’s article on the `this` keyword</a> covers how `this` changes in various situations. Pay special attention to the pitfalls mentioned in each section.
-    - Read the article <a href="https://medium.com/@eamonocallaghan/prototype-vs-proto-vs-prototype-in-javascript-6758cadcbae8" target="_blank" rel="noopener noreferrer">[[Prototype]] vs **proto** vs .prototype in Javascript</a>
+2. You might have noticed us using the `this` keyword in object constructors and prototype methods in the examples above. :white_check_mark:
+    - <a href="https://www.javascripttutorial.net/javascript-this/" target="_blank" rel="noopener noreferrer">JavaScript Tutorial’s article on the `this` keyword</a> covers how `this` changes in various situations. Pay special attention to the pitfalls mentioned in each section. :white_check_mark: Muito bom!
+
+3. Read the article <a href="https://medium.com/@eamonocallaghan/prototype-vs-proto-vs-prototype-in-javascript-6758cadcbae8" target="_blank" rel="noopener noreferrer">[[Prototype]] vs **proto** vs .prototype in Javascript</a> :white_check_mark: Muito bom!
 
 ## Knowledge check
 
 * How do you write an object constructor and instantiate the object?
 
+```js
+function ObjConstructor() {
+  this.name = "Slim Shady";
+  this.info = function () {
+    return `My name is ${this.name}`;
+  }
+}
 
+let eminem = new ObjConstructor();
+```
 
 * What is a prototype and how can it be used?
 
-
+The `[[Prototype]]` is a hidden property of every object that points to another object that the first one inherits from.
 
 * What is prototypal inheritance?
 
-
+Is the phenomenon of recursively inherinting the methods and properties of its prototype.
 
 * What are the basic do’s and don’t’s of prototypal inheritance?
 
+It is not recommended to use `.__proto__` as it's deprecated. Do not set
+```js
+Player.prototype = Person.prototype;
+```
+because it could cause problems. It is recommended to:
+```js
+Object.setPrototypeOf(Player.prototype, Person.prototype)
+```
 
+Also, using `setPrototypeOf()` after objects have already been created can result in performance issues.
 
 * How does this behave in different situations?
 
