@@ -119,17 +119,53 @@ Using the `prefers-color-scheme` media query can be pretty helpful for users sin
 
 ### [Assignment](#assignment)
 
-1.  This [video on CSS custom properties](https://www.youtube.com/watch?v=PHO6TBq_auI) is a great introduction. Go ahead and watch it. :rocket: <++>
-2.  Read through MDN’s [Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#inheritance_of_custom_properties) page starting at the “Inheritance of custom properties” section. :rocket: <++>
-3.  Read the CSS Tricks article for a [comprehensive overview of custom properties and what you can do with them](https://css-tricks.com/a-complete-guide-to-custom-properties/). :rocket: <++>
-4.  Open the inspector on this page to inspect the styles and see how Odin uses some custom properties. :rocket: <++>
+1.  This [video on CSS custom properties](https://www.youtube.com/watch?v=PHO6TBq_auI) is a great introduction. Go ahead and watch it. :white_check_mark:
+2.  Read through MDN’s [Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#inheritance_of_custom_properties) page starting at the “Inheritance of custom properties” section. :white_check_mark:
+3.  Read the CSS Tricks article for a [comprehensive overview of custom properties and what you can do with them](https://css-tricks.com/a-complete-guide-to-custom-properties/). :white_check_mark:
+4.  Open the inspector on this page to inspect the styles and see how Odin uses some custom properties. :white_check_mark:
 
 ### [Knowledge check](#knowledge-check)
 
 *   [How would you declare a custom property with a name of `text-color`?](#using-custom-properties)
+
+```css
+:root {
+  --text-color: red;
+}
+```
+
 *   [How would you access a custom property with a name of `background-color`?](#using-custom-properties)
+
+`background-color: --background-color`.
+
 *   [Where would you declare a custom property to have its scope be global and accessible by all other selectors?](#scope)
+
+```css
+:root {
+  --text-color: red;
+}
+```
+
+or
+
+```css
+@property --text-color {
+  syntax: "<color>";
+  inheris: false;
+  initial-value: red;
+}
+```
+
 *   [Where would you declare a custom property so that a user’s theme setting from their OS or browser was taken into account?](#creating-themes-with-custom-properties)
+
+```css
+:root.dark {
+  --border-btn: 1px solid rgb(220, 220, 220);
+  --color-base-bg: rgb(18, 18, 18);
+  --color-base-text: rgb(240, 240, 240);
+  --color-btn-bg: rgb(36, 36, 36);
+}
+```
 
 ### [Additional resources](#additional-resources)
 
