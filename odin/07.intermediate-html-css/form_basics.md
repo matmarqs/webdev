@@ -461,28 +461,119 @@ Things get more tricky when creating custom styles for radio buttons and checkbo
 
 Certain aspects of other elements are downright impossible to style, for example, calendar or date pickers. If we want custom styles for these, we will have to build custom form controls with JavaScript or use one of the many JavaScript libraries that provide us with ready-made solutions.
 
+### How to structure your web form
+
+#### The `<fieldset>` and `<legend>` elements
+
+The [`<fieldset>`](/en-US/docs/Web/HTML/Element/fieldset) element is a convenient way to create groups of widgets that share the same purpose, for styling and semantic purposes. You can label a [`<fieldset>`](/en-US/docs/Web/HTML/Element/fieldset) by including a [`<legend>`](/en-US/docs/Web/HTML/Element/legend) element just below the opening [`<fieldset>`](/en-US/docs/Web/HTML/Element/fieldset) tag. The text content of the [`<legend>`](/en-US/docs/Web/HTML/Element/legend) formally describes the purpose of the [`<fieldset>`](/en-US/docs/Web/HTML/Element/fieldset) it is included inside.
+```html
+<form>
+  <fieldset>
+    <legend>Fruit juice size</legend>
+    <p>
+      <input type="radio" name="size" id="size_1" value="small" />
+      <label for="size_1">Small</label>
+    </p>
+    <p>
+      <input type="radio" name="size" id="size_2" value="medium" />
+      <label for="size_2">Medium</label>
+    </p>
+    <p>
+      <input type="radio" name="size" id="size_3" value="large" />
+      <label for="size_3">Large</label>
+    </p>
+  </fieldset>
+</form>
+```
+
+The `<label>` element is the formal way to define a label for an HTML form widget. 
+```html
+<label for="name">Name:</label> <input type="text" id="name" name="user_name" />
+```
+
+There is another way to associate a form control with a label — nest the form control within the `<label>`, implicitly associating it.
+```html
+<label for="name">
+  Name: <input type="text" id="name" name="user_name" />
+</label>
+```
+
+Note: *Labels are clickable, too!*
+
+Strictly speaking, you can put multiple labels on a single widget, but this is not a good idea as some assistive technologies can have trouble handling them.
+
+```html
+<p>Required fields are followed by <span aria-label="required">*</span>.</p>
+
+<!-- So this: -->
+<!--div>
+  <label for="username">Name:</label>
+  <input id="username" type="text" name="username" required>
+  <label for="username"><span aria-label="required">*</label>
+</div-->
+
+<!-- would be better done like this: -->
+<!--div>
+  <label for="username">
+    <span>Name:</span>
+    <input id="username" type="text" name="username" required>
+    <span aria-label="required">*</span>
+  </label>
+</div-->
+
+<!-- But this is probably best: -->
+<div>
+  <label for="username">Name: <span aria-label="required">*</span></label>
+  <input id="username" type="text" name="username" required />
+</div>
+```
+
+
+
+* In the first example, the label is not read out at all with the input — you just get "edit text blank", plus the actual labels are read out separately. The multiple `<label>` elements confuse the screen reader.
+* In the second example, things are a bit clearer — the label read out along with the input is "name star name edit text required", and the labels are still read out separately. Things are still a bit confusing, but it's a bit better this time because the `<input>` has a label associated with it.
+* The third example is best — the actual label is read out all together, and the label read out with the input is "name required edit text".
+
+
 ### [Assignment](#assignment)
 
 #### [Form basics](#form-basics)
 
-1.  Read and follow along with [MDN’s Introductory Guides to Forms](https://developer.mozilla.org/en-US/docs/Learn/Forms#introductory_guides) :white_check_mark: - complete [Your first form](https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form) :white_check_mark: and [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form) :rocket: <++>
-2.  Read and follow along with [MDN’s The Different Form Controls Guides](https://developer.mozilla.org/en-US/docs/Learn/Forms#the_different_form_controls) :rocket: <++>
+1.  Read and follow along with [MDN’s Introductory Guides to Forms](https://developer.mozilla.org/en-US/docs/Learn/Forms#introductory_guides) :white_check_mark: - complete [Your first form](https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form) :white_check_mark: and [How to structure a web form](https://developer.mozilla.org/en-US/docs/Learn/Forms/How_to_structure_a_web_form) :white_check_mark:
+2.  Read and follow along with [MDN’s The Different Form Controls Guides](https://developer.mozilla.org/en-US/docs/Learn/Forms#the_different_form_controls) :white_check_mark:
 
 #### [Styling forms](#styling-forms)
 
-1.  Read and follow along with [MDN’s Form Styling Tutorials](https://developer.mozilla.org/en-US/docs/Learn/Forms#form_styling_tutorials) :rocket: <++>
-2.  Read and follow along with [the internetingishard guide to forms](https://internetingishard.netlify.app/html-and-css/forms/index.html) :rocket: <++>
+1.  Read and follow along with [MDN’s Form Styling Tutorials](https://developer.mozilla.org/en-US/docs/Learn/Forms#form_styling_tutorials) :white_check_mark:
+2.  Read and follow along with [the internetingishard guide to forms](https://internetingishard.netlify.app/html-and-css/forms/index.html) :x: (Didn't read this one)
 
 ### [Knowledge check](#knowledge-check)
 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
 *   [Explain what the form element is for and what two attributes it should always include.](#the-form-element)
+
+It is for sending data to the backend, or some other URL. The two attributes are `action` and `method`.
+
 *   [Explain what form controls are at a high level.](#form-controls)
+
+They are where the user interacts to input their data to be sent.
+
 *   [What is the `name` attribute for?](#the-name-attribute)
+
+It is the parameter name to send data.
+
 *   [What are the three most common form controls you can use for allowing users to select predefined options?](#selection-elements)
+
+Select dropdown, radio buttons and checkboxes.
+
 *   [What are the three types of buttons in HTML?](#buttons)
+
+`submit`, `reset`, and `button`.
+
 *   [What are the two most challenging aspects of styling forms?](#a-note-on-styling-forms)
+
+Some form control elements are tricky, such as radio buttons, and checkboxes. Also you have to take care of default browser styles.
 
 ### [Additional resources](#additional-resources)
 
