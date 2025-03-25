@@ -210,8 +210,8 @@ Take the calculator example into consideration. It’s very easy to imagine a sc
 
 1.  WesBos has a beautiful and in-depth section on scopes and closures. Please check out these sections under “Module 3 - The Tricky Bits”:
     *   [The article on scope](https://wesbos.com/javascript/03-the-tricky-bits/scope) :white_check_mark:
-    *   [The article on closures](https://wesbos.com/javascript/03-the-tricky-bits/closures) :rocket: <++>
-2.  Read this article on [module pattern in JavaScript](https://dev.to/tomekbuszewski/module-pattern-in-javascript-56jm) by Tomek Buszewski.
+    *   [The article on closures](https://wesbos.com/javascript/03-the-tricky-bits/closures) :white_check_mark:
+2.  Read this article on [module pattern in JavaScript](https://dev.to/tomekbuszewski/module-pattern-in-javascript-56jm) by Tomek Buszewski. :rocket: <++>
 3.  As an optional alternative, in case you prefer video lessons, this [YouTube series on module pattern](https://www.youtube.com/playlist?list=PLoYCgNOIyGABs-wDaaxChu82q_xQgUb4f) covers most of the content that we have discussed. Note that the videos include jQuery, but you don’t need to understand the jQuery syntax since the focus is on the module pattern concept.
 
 ### [Knowledge check](#knowledge-check)
