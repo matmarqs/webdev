@@ -227,18 +227,41 @@ CJS is still used quite a lot in Node.js code, though in recent years, ESM in No
 
 ### [Assignment](#assignment)
 
-1.  As per usual, you can learn most about JavaScript keywords and concepts from the MDN docs, so check out the [docs on export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) and [docs on import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). There are little extras about them we have not covered in this lesson, such as aliases and namespace imports.
+1.  As per usual, you can learn most about JavaScript keywords and concepts from the MDN docs, so check out the [docs on export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) and [docs on import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). There are little extras about them we have not covered in this lesson, such as aliases and namespace imports. :white_check_mark:
 
 ### [Knowledge check](#knowledge-check)
 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
 *   [Before ES6 modules, how would you privatize a variable from being accessible in other files?](#before-es6-modules-the-global-scope-problem)
+
+By using the "module pattern" of IIFE (Immediate Invoked Function Expressions).
+
 *   [Before ES6 modules, how would you expose variables to be accessible in later files?](#before-es6-modules-the-global-scope-problem)
+
+Using the global scope and with the script tag `<script src="file1.js"></script>`, `<script src="file2.js"></script>`.
+
 *   [What are some benefits of writing code in modules?](#introduction)
+
+Modularizing, creating namespacing, organization, etc.
+
 *   [What is the difference between default and named exports?](#default-exports)
+
+There can only be one default export, and we can rename it whatever we want.
+```bash
+import theDefaultOne from "./util.js"
+```
+
+The named exports need to have the same name as in the file who exports it. But you can also use aliases to rename them!
+
 *   [What is an entry point?](#entry-points)
+
+Is the top-level module that import all other necessary modules.
+
 *   [How do you link a module script in HTML?](#entry-points)
+
+With `<script src="mymodule.js" type="module"></script>`.
+
 
 ### [Additional resources](#additional-resources)
 
