@@ -55,11 +55,16 @@ In our own projects, as we use npm to install new packages (or uninstall any!), 
     1.  [Installing packages with npm](https://docs.npmjs.com/downloading-and-installing-packages-locally). :white_check_mark:
     2.  Read about [the `package.json` file](https://docs.npmjs.com/creating-a-package-json-file), the file that stores much of the information for our application. :white_check_mark:
     3.  Any packages we install are called “dependencies”, but if any packages are only used during the development process and their code is not needed for the user-facing app (such as the Jest testing framework), we call them [development dependencies](https://dev.to/mshertzberg/demystifying-devdependencies-and-dependencies-5ege). :white_check_mark:
-2.  Here is a great little [history lesson about JavaScript and managing packages across multiple files](https://peterxjang.com/blog/modern-javascript-explained-for-dinosaurs.html). Only read up to “Using a JavaScript module bundler (webpack)”, as we will cover bundlers and webpack in the next lesson. :rocket: <++>
+2.  Here is a great little [history lesson about JavaScript and managing packages across multiple files](https://peterxjang.com/blog/modern-javascript-explained-for-dinosaurs.html). Only read up to “Using a JavaScript module bundler (webpack)”, as we will cover bundlers and webpack in the next lesson. :white_check_mark:
 
 ### [Knowledge check](#knowledge-check)
 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
 *   [What is npm?](#npm)
+
+`npm` is a package manager for Node.js (but it is not an acronym and does not means "Node Package Manager"). It is a tool for managing and installing JavaScript libraries.
+
 *   [What file does npm use that contains all information about dependencies?](https://docs.npmjs.com/creating-a-package-json-file)
+
+The file `package.json`, and `package-lock.json` that it auto-generates.
