@@ -420,7 +420,7 @@ In a later lesson, we will introduce some extra things that can make setting up 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
 *   [What is a bundler?](#bundling) :rocket: <++>
-*   [What is Webpack?](#webpack)
+*   [What is Webpack?](#webpack) :rocket: <++>
 *   [How do you bundle JavaScript?](#bundling-javascript)
 *   [How do you load CSS using Webpack?](#loading-css)
 *   [How do you automatically build HTML files in `dist` using Webpack?](#handling-html)
