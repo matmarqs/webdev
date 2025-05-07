@@ -412,7 +412,7 @@ In a later lesson, we will introduce some extra things that can make setting up 
 
 ### [Assignment](#assignment)
 
-1.  Start by reading the [Webpack concepts](https://webpack.js.org/concepts/) page to get a general understanding of some of the main terms. :rocket: <++>
+1.  Start by reading the [Webpack concepts](https://webpack.js.org/concepts/) page to get a general understanding of some of the main terms. :white_check_mark:
 2.  [Webpack’s Asset Management guide](https://webpack.js.org/guides/asset-management/) goes through some examples of how to handle various kinds of assets, like CSS, images, and fonts. You’ll see that its examples use `npm run build` to bundle the files; in these examples, that’s the equivalent of `npx webpack`. We will go through npm scripts in a later lesson. :rocket: <++>
 
 ### [Knowledge check](#knowledge-check)
