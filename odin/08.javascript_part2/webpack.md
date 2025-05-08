@@ -413,17 +413,63 @@ In a later lesson, we will introduce some extra things that can make setting up 
 ### [Assignment](#assignment)
 
 1.  Start by reading the [Webpack concepts](https://webpack.js.org/concepts/) page to get a general understanding of some of the main terms. :white_check_mark:
-2.  [Webpack’s Asset Management guide](https://webpack.js.org/guides/asset-management/) goes through some examples of how to handle various kinds of assets, like CSS, images, and fonts. You’ll see that its examples use `npm run build` to bundle the files; in these examples, that’s the equivalent of `npx webpack`. We will go through npm scripts in a later lesson. :rocket: <++>
+2.  [Webpack’s Asset Management guide](https://webpack.js.org/guides/asset-management/) goes through some examples of how to handle various kinds of assets, like CSS, images, and fonts. You’ll see that its examples use `npm run build` to bundle the files; in these examples, that’s the equivalent of `npx webpack`. We will go through npm scripts in a later lesson. :white_check_mark:
 
 ### [Knowledge check](#knowledge-check)
 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
-*   [What is a bundler?](#bundling) :rocket: <++>
-*   [What is Webpack?](#webpack) :rocket: <++>
+*   [What is a bundler?](#bundling)
+
+A bundler is a JavaScript library that automatically manages all dependencies and builds a single JavaScript file or few files, with all the necessary code included.
+
+*   [What is Webpack?](#webpack)
+
+It is a very popular bundler for JavaScript.
+
 *   [How do you bundle JavaScript?](#bundling-javascript)
+
+You install `webpack` through `npm`, and write modular `Node.js` code at `src/`. At the end you build the final JavaScript code at `dist/main.js` with `npx webpack` or `npm build`.
+
 *   [How do you load CSS using Webpack?](#loading-css)
+
+You use `npm` packages `style-loader` and `css-loader`, edit your `webpack.config.js` with
+```js
+module: {
+  rules: [
+    {
+      test: /\.css$/i,
+      use: ["style-loader", "css-loader"],
+    },
+  ],
+},
+```
+
 *   [How do you automatically build HTML files in `dist` using Webpack?](#handling-html)
+
+Use a webpack plugin, `npm` package `html-webpack-plugin`, and at `webpack.config.js`:
+```js
+plugins: [
+  new HtmlWebpackPlugin({
+    template: "./src/template.html",
+  }),
+],
+```
+
 *   [How would you handle assets like local image files?](#loading-images)
+
+You can import them just like you import CSS files, just `import odinImage from "./odin.png";` But also configure your `webpack.config.js` file:
+```js
+{
+  test: /\.(png|svg|jpg|jpeg|gif)$/i,
+  type: "asset/resource",
+},
+```
+
 *   [What Webpack tool could you use during development to view changes to your website live?](#webpack-dev-server)
+
+The command `npx webpack serve`.
+
 *   [How does using a source map help with development?](#source-maps)
+
+Because `webpack` modifies and optimizes your code, debugging it is not trivial. Source map is a utility that maps the resulting code to your source code, to help debugging during development.
