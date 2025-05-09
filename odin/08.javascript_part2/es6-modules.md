@@ -20,19 +20,19 @@ Even though `let`/`const` and arrow functions were not around before ES6, we wil
 
 Let’s say we have two scripts, `one.js` and `two.js`, and we link them in our HTML as separate scripts.
 
-```
+```js
 <script src="one.js" defer></script>
 <script src="two.js" defer></script>
 ```
 
 
-```
+```js
 // one.js
 const greeting = "Hello, Odinite!";
 ```
 
 
-```
+```js
 // two.js
 console.log(greeting);
 ```
@@ -44,7 +44,7 @@ This means that even if we use multiple JavaScript files, they will still end up
 
 Before ESM, we could wrap some things in an IIFE, which would cause it to run just the same, but now any variables inside them are scoped to that function and not globally.
 
-```
+```js
 // one.js
 (() => {
   const greeting = "Hello, Odinite!";
@@ -54,7 +54,7 @@ Before ESM, we could wrap some things in an IIFE, which would cause it to run ju
 
 Now, we get an error in the console that `greeting is not defined`, because there is no global variable called `greeting` for us to log! But what if we wanted only _some_ things to be exposed to other files? We can return those things from our IIFE into the global scope and keep the other things private!
 
-```
+```js
 // one.js
 const greeting = (() => {
   const greetingString = "Hello, Odinite!";
@@ -88,7 +88,7 @@ Let’s use our `one.js` and `two.js` examples from before. First, we’ll need 
 
 To export something as a **named export**, we can either stick the `export` keyword in front of its declaration, or add an `export { }` somewhere in the file (typically the end), where the curly braces contain a list of the names of the things to export. Either method is fine to use, and we can export as many things as we liked as named exports.
 
-```
+```js
 // one.js
 export const greeting = "Hello, Odinite!";
 export const farewell = "Bye bye, Odinite!";
@@ -97,7 +97,7 @@ export const farewell = "Bye bye, Odinite!";
 
 Or on a separate line:
 
-```
+```js
 // one.js
 const greeting = "Hello, Odinite!";
 const farewell = "Bye bye, Odinite!";
@@ -109,7 +109,7 @@ Now to import these variables in `two.js`! Remember that we can control what we 
 
 Note that [you cannot use template strings for the file path](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#module-name), only single or double-quoted strings.
 
-```
+```js
 // two.js
 import { greeting, farewell } from "./one.js";
 console.log(greeting); // "Hello, Odinite!"
@@ -121,7 +121,7 @@ console.log(farewell); // "Bye bye, Odinite!"
 
 Using `{ }` with named imports/exports is special syntax and is not related in any way to declaring object literals or [destructuring objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#object_destructuring).
 
-```
+```js
 export { greeting, farewell };
 import { greeting, farewell } from "./one.js";
 ```
@@ -137,7 +137,7 @@ To export something from a file as a default export, we can also do it inline by
 
 Let’s default export our greeting string from `one.js`.
 
-```
+```js
 // one.js
 export default "Hello, Odinite!";
 ```
@@ -145,7 +145,7 @@ export default "Hello, Odinite!";
 
 Or on a separate line:
 
-```
+```js
 // one.js
 const greeting = "Hello, Odinite!";
 export default greeting;
@@ -154,7 +154,7 @@ export default greeting;
 
 Now in our `two.js`, we can default import that string. Remember, since we’re importing something that was default exported, we can name it whatever we want. Even though the variable was called `greeting` in `one.js`, we don’t have to call it that in `two.js` if we don’t want to. When default importing, we don’t use curly braces, which are for named importing.
 
-```
+```js
 // two.js
 import helloOdinite from "./one.js";
 console.log(helloOdinite); // "Hello, Odinite!"
@@ -165,7 +165,7 @@ You can use both default and named exports in the same file. Confusingly enough,
 
 Let’s default export the greeting string from `one.js`, and export the farewell string as a named export.
 
-```
+```js
 // one.js
 export default "Hello, Odinite!";
 export const farewell = "Bye bye, Odinite!";
@@ -174,7 +174,7 @@ export const farewell = "Bye bye, Odinite!";
 
 We can then import them both in `two.js`. We need to default import the greeting string (which also means we can name it whatever we want) and named import the farewell string.
 
-```
+```js
 // two.js
 import greeting, { farewell } from "./one.js";
 console.log(greeting); // "Hello, Odinite!"
@@ -186,7 +186,7 @@ console.log(farewell); // "Bye bye, Odinite!"
 
 When we use ESM, instead of adding every JavaScript file to our HTML in order, we only need to link a single file - the **entry point**.
 
-```
+```html
 <script src="two.js" type="module"></script>
 ```
 
@@ -248,7 +248,7 @@ Modularizing, creating namespacing, organization, etc.
 *   [What is the difference between default and named exports?](#default-exports)
 
 There can only be one default export, and we can rename it whatever we want.
-```bash
+```js
 import theDefaultOne from "./util.js"
 ```
 
