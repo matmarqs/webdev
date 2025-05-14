@@ -69,19 +69,34 @@ This one is related pretty strongly to ‘Single Responsibility’ but takes a d
 ### [Assignment](#assignment)
 
 1.  The following article and videos mention the acronym **SOLID** before going on to talk about Single Responsibility. Single Responsibility is definitely the most relevant of the 5, but feel free to dig into the rest of the SOLID principles, if you like.
-    1.  Read this article about [SOLID principle #1: Single responsibility (JavaScript)](https://duncan-mcardle.medium.com/solid-principle-1-single-responsibility-javascript-5d9ce2c6f4a5). It simplifies that which is covered in more detail in the SOLID videos below. :rocket: <++>
-    2.  Watch [The SOLID Design Principles by WDS](https://www.youtube.com/playlist?list=PLZlA0Gpn_vH9kocFX7R7BAe_CvvOCO_p9) to see code examples for each principle. :rocket: <++>
-2.  [How to Write Highly Scalable and Maintainable JavaScript: Coupling](https://web.archive.org/web/20170215102316/http://www.innoarchitech.com:80/scalable-maintainable-javascript-coupling) explains loosely coupled objects pretty well. :rocket: <++>
-3.  FunFunFunction has a great video on [favoring composition over inheritance](https://www.youtube.com/watch?v=wfMtDGfHWpA). :rocket: <++>
+    1.  Read this article about [SOLID principle #1: Single responsibility (JavaScript)](https://duncan-mcardle.medium.com/solid-principle-1-single-responsibility-javascript-5d9ce2c6f4a5). It simplifies that which is covered in more detail in the SOLID videos below. :white_check_mark:
+    2.  Watch [The SOLID Design Principles by WDS](https://www.youtube.com/playlist?list=PLZlA0Gpn_vH9kocFX7R7BAe_CvvOCO_p9) to see code examples for each principle. :white_check_mark:
+2.  [How to Write Highly Scalable and Maintainable JavaScript: Coupling](https://web.archive.org/web/20170215102316/http://www.innoarchitech.com:80/scalable-maintainable-javascript-coupling) explains loosely coupled objects pretty well. :rocket: :white_check_mark:
+3.  FunFunFunction has a great video on [favoring composition over inheritance](https://www.youtube.com/watch?v=wfMtDGfHWpA). :white_check_mark:
 
 ### [Knowledge check](#knowledge-check)
 
 The following questions are an opportunity to reflect on key topics in this lesson. If you can’t answer a question, click on it to review the material, but keep in mind you are not expected to memorize or master this knowledge.
 
-*   [What is the “Single Responsibility Principle”?](#single-responsibility) :rocket: <++>
+*   [What is the “Single Responsibility Principle”?](#single-responsibility)
+
+It is the OOP principle that says that each class should only have one responsibility, and thus one reason to change. It does not mean that the class should have only one method, but a collection of properties to solve only one task. It is the `S` from `SOLID`.
+
 *   [What are the additional SOLID principles?](https://duncan-mcardle.medium.com/solid-principle-1-single-responsibility-javascript-5d9ce2c6f4a5)
+
+* `S`: Single Responsibility: Each class has should have only one responsibility.
+* `O`: Open-Closed: Open for extension, closed for modification.
+* `L`: Liskov Substitution: Functions that have a class `A` as argument, should behave normally with any subclass `B` of `A`. This principle assumes you are using `inheritance`.
+* `I`: Interface Segregation: Make small interfaces that do simple things, not a big interface that does a lot.
+* `D`: Dependency Inversion. Instead of directly depending of an API, depends on a wrapper that expose the API. This wrapper makes it easier to change the API, if necessary.
+
 *   [What are “tightly coupled” objects and why do we want to avoid them?](https://web.archive.org/web/20170215102316/http://www.innoarchitech.com:80/scalable-maintainable-javascript-coupling)
+
+These are classes that depend heavily on one another. We wan to avoid them, because with them, once we change one of them, we usually have to change the other due to their strong dependency. Also, they are hard to test when tightly coupled. The SOLID principles' objective is to avoid tightly coupled objects.
+
 *   [Why is favoring composition over inheritance suggested?](https://www.youtube.com/watch?v=wfMtDGfHWpA)
+
+Because `inheritance` is a bad pattern: in early stages of development, using inheritance defines the design of the future. Later, it will be hard to change things, you are going to regret it. With composition, there is no such risk, is just a much better and simple pattern.
 
 ### [Additional resources](#additional-resources)
 
